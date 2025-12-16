@@ -53,7 +53,7 @@ func Loop() {
 
 		executable := findExecutables(args[0])
 		if executable != "" {
-			cmd := exec.Command(args[0], remainingArgs...)
+			cmd := exec.Command(args[0], args...)
 			output, err := cmd.CombinedOutput()
 			if err != nil {
 				fmt.Print(err, "\n")
