@@ -10,11 +10,14 @@ var _ = fmt.Print
 func main() {
 	// TODO: Uncomment the code below to pass the first stage
 
-	var command string
+	for {
+		var command string
 
-	fmt.Print("$ ")
+		fmt.Print("$ ")
 
-	fmt.Scan(&command)
+		fmt.Scan(&command)
 
-	fmt.Printf("%v: command not found\n", command)
+		fmt.Printf("%v: command not found\n", command)
+
+	}
 }
