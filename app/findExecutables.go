@@ -26,7 +26,7 @@ func findExecutables(command string) string {
 				}
 				isExecutable := info.Mode().Perm()&0o100 != 0
 				if isExecutable {
-					return fmt.Sprintf("%v/%v\n", dir, file.Name())
+					return fmt.Sprintf("%v/%v", dir, file.Name())
 				}
 
 			}

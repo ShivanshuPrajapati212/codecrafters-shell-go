@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"slices"
 	"strings"
 )
@@ -37,10 +38,29 @@ func Loop() {
 			}
 			executable := findExecutables(command[5:])
 			if executable != "" {
-				fmt.Printf("%v is %v", command[5:], executable)
+				fmt.Printf("%v is %v\n", command[5:], executable)
 				continue
 			}
 			fmt.Printf("%v: not found\n", command[5:])
+			continue
+		}
+
+		args := strings.Split(command, " ")
+		var remainingArgs []string
+		if len(args) > 2 {
+			remainingArgs = args[1:]
+		}
+
+		executable := findExecutables(args[0])
+		if executable != "" {
+			cmd := exec.Command(executable, remainingArgs...)
+			output, err := cmd.CombinedOutput()
+			if err != nil {
+				fmt.Print(err, "\n")
+				continue
+			}
+			fmt.Print(string(output))
+			cmd.Run()
 			continue
 		}
 
