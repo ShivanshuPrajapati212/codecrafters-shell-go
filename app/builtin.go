@@ -46,14 +46,14 @@ func Loop() {
 		}
 
 		args := strings.Split(command, " ")
-		// var remainingArgs []string
-		// if len(args) > 2 {
-		// 	remainingArgs = args
-		// }
+		var remainingArgs []string
+		if len(args) >= 2 {
+			remainingArgs = args[1:]
+		}
 
 		executable := findExecutables(args[0])
 		if executable != "" {
-			cmd := exec.Command(args[0], args...)
+			cmd := exec.Command(args[0], remainingArgs...)
 			output, err := cmd.CombinedOutput()
 			if err != nil {
 				fmt.Print(err, "\n")
