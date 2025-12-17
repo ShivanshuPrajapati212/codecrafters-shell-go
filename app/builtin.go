@@ -58,6 +58,21 @@ func Loop() {
 
 		if strings.HasPrefix(command, "cd") {
 			commands := strings.Split(command, " ")
+			if len(commands) <= 1 {
+				continue
+			}
+			if commands[1] == "~" {
+				home := os.Getenv("HOME")
+				if home == "" {
+					fmt.Println("No Home dir")
+					continue
+				}
+				err := os.Chdir(home)
+				if err != nil {
+					fmt.Println("Error changing dir")
+				}
+				continue
+			}
 			dir, err := os.Stat(commands[1])
 			if err == nil {
 				if dir.IsDir() {
