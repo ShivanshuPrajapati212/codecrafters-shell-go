@@ -45,6 +45,17 @@ func Loop() {
 			continue
 		}
 
+		if strings.HasPrefix(command, "pwd") {
+			dir, err := os.Getwd()
+			if err != nil {
+				fmt.Println("Error Occured")
+				continue
+			}
+
+			fmt.Println(dir)
+			continue
+		}
+
 		args := strings.Split(command, " ")
 		var remainingArgs []string
 		if len(args) >= 2 {
