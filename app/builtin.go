@@ -10,7 +10,7 @@ import (
 )
 
 func Loop() {
-	builtinCommands := []string{"type", "exit", "echo", "pwd"}
+	builtinCommands := []string{"type", "exit", "echo", "pwd", "cd"}
 
 	for {
 		var command string
@@ -53,6 +53,23 @@ func Loop() {
 			}
 
 			fmt.Println(dir)
+			continue
+		}
+
+		if strings.HasPrefix(command, "cd") {
+			commands := strings.Split(command, " ")
+			dir, err := os.Stat(commands[1])
+			if err == nil {
+				if dir.IsDir() {
+					err := os.Chdir(commands[1])
+					if err != nil {
+						fmt.Println("Error changing dir")
+						continue
+					}
+					continue
+				}
+			}
+			fmt.Printf("cd: %v: No such file or directory\n", commands[1])
 			continue
 		}
 
