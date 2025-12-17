@@ -10,7 +10,7 @@ import (
 )
 
 func Loop() {
-	builtinCommands := []string{"type", "exit", "echo"}
+	builtinCommands := []string{"type", "exit", "echo", "pwd"}
 
 	for {
 		var command string
